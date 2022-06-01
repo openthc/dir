@@ -20,7 +20,7 @@
 		"openthc/common": "dev-master",
 		"openthc/cre-adapter": "dev-master",
 		"phpoffice/phpspreadsheet": "1.23.0",
-		"smalot/pdfparser": "0.17.1",
+		"smalot/pdfparser": "2.2.1",
 		"tuupola/base32": "2.0.0"
 	},
 	"require-dev": {
