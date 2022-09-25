@@ -12,8 +12,8 @@
 		]
 	},
 	"require": {
-		"edoceo/radix": "dev-master",
-		"edoceo/lowline_php": "dev-master",
+		"edoceo/radix": "2021.0.0",
+		"edoceo/lowline": "2022.0.266",
 		"erusev/parsedown-extra": "0.8.1",
 		"geoip2/geoip2": "2.12.2",
 		"league/oauth2-client": "2.6.1",
