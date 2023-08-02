@@ -30,6 +30,14 @@ function _search_update_company($dbc)
 
 	echo "_search_update_company($idx)";
 
+	// Remove Dead Stuff
+	$sql = <<<SQL
+	DELETE FROM search_full_text
+	WHERE tb = 'company'
+	  AND id NOT IN (SELECT id FROM company)
+	SQL;
+	$dbc->query($sql);
+
 	$sql_upsert = <<<SQL
 	INSERT INTO search_full_text (id, tb, stat, flag, cre, ftxt, ftsv)
 	VALUES (:pk, 'company', :s1, :f1, :c1, :n1, setweight(to_tsvector(:text_A), 'A') || setweight(to_tsvector(:text_B), 'B'))
@@ -97,6 +105,14 @@ function _search_update_license($dbc)
 
 	echo "_search_update_license($idx)\r";
 
+	// Remove Dead Stuff
+	$sql = <<<SQL
+	DELETE FROM search_full_text
+	WHERE tb = 'license'
+	  AND id NOT IN (SELECT id FROM license)
+	SQL;
+	$dbc->query($sql);
+
 	// Prepare
 	$sql_upsert = <<<SQL
 	INSERT INTO search_full_text (id, tb, stat, flag, cre, ftxt, ftsv)
@@ -162,6 +178,14 @@ function _search_update_contact($dbc)
 	$idx = 0;
 
 	echo "_search_update_contact($idx)\r";
+
+	// Remove Dead Stuff
+	$sql = <<<SQL
+	DELETE FROM search_full_text
+	WHERE tb = 'contact'
+	  AND id NOT IN (SELECT id FROM contact)
+	SQL;
+	$dbc->query($sql);
 
 	// Upsert Global Search Table
 	$sql_upsert = <<<SQL
