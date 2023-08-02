@@ -1,20 +1,26 @@
 <?php
 /**
  * Search Controller
+ *
+ * SPDX-License-Identifier: GPL-3.0-only
  */
 
-namespace App\Controller;
+namespace OpenTHC\Directory\Controller;
 
 class Search extends \OpenTHC\Controller\Base
 {
+	/**
+	 *
+	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$dbc = _dbc();
 
+		$_GET['q'] = trim($_GET['q']);
+		$_GET['cre'] = trim($_GET['cre']);
+		$_GET['type'] = trim($_GET['type']);
+
 		$cre_list = \OpenTHC\CRE::getEngineList();
-		$cre_list = array_filter($cre_list, function($item) {
-			return 'test' != basename($item['code']);
-		});
 
 		$data = array(
 			'Page' => array('title' => 'Directory'),
@@ -26,20 +32,75 @@ class Search extends \OpenTHC\Controller\Base
 			'result_list' => [],
 		);
 
+		// Try some Magic things here
+		// Likely Email So, Search That
+		if (preg_match('/\w@\w/', $_GET['q'])) {
+			if (_acl($_SESSION['Contact']['id'], 'contact', 'search')) {
+				// $sql = 'SELECT id AS object_id, 'contact' AS object_type '
+			}
+		}
+
+		// All Digits?
+		// Could be a Phone Number
+		if (preg_match('/^\d+$/', $_GET['q'])) {
+			if (_acl($_SESSION['Contact']['id'], 'contact', 'search')) {
+				// $sql = 'SELECT id AS object_id, 'contact' AS object_type '
+			}
+		}
+
+
 		$sql_query = <<<SQL
-SELECT *
-FROM object_search
-WHERE {WHERE}
-ORDER BY name
-OFFSET 0
-LIMIT 25
-SQL;
+		SELECT *,
+			id AS object_id,
+			tb AS object_type,
+			ftxt AS name
+			-- type AS object_sub_type
+		FROM search_full_text
+		WHERE {WHERE}
+		ORDER BY name, object_type, type, stat
+		OFFSET 0
+		LIMIT 50
+		SQL;
+		// Table "public.search_full_text"
+		// Column |         Type          | Collation | Nullable | Default
+		// --------+-----------------------+-----------+----------+---------
+		// id     | character varying(26) |           | not null |
+		// tb     | text                  |           |          |
+		// ftxt   | text                  |           |          |
+		// ftsv   | tsvector              |           |          |
+		// cre    | character varying(32) |           |          |
+		// type   | character varying(64) |           |          |
+		// stat   | integer               |           |          |
+		// flag   | integer               |           |          |
+
+
+		// $sql_query = <<<SQL
+		// SELECT *
+		// FROM object_search
+		// WHERE {WHERE}
+		// ORDER BY name, object_type, type, stat
+		// OFFSET 0
+		// LIMIT 25
+		// SQL;
+		// View "public.object_search"
+		// Column    |          Type          | Collation | Nullable | Default
+		// -------------+------------------------+-----------+----------+---------
+		// object_id   | character varying(26)  |           |          |
+		// object_type | text                   |           |          |
+		// name        | character varying(256) |           |          |
+		// cre         | character varying(32)  |           |          |
+		// type        | character varying(64)  |           |          |
+		// stat        | integer                |           |          |
+		// flag        | integer                |           |          |
+		// ftsv        | tsvector               |           |          |
+
 
 		$sql_where = [];
 		$sql_param = [];
 		if (!empty($_GET['cre'])) {
 			$sql_param[':c0'] = $_GET['cre'];
-			$sql_where[] = 'cre = :c0';
+			$sql_where[] = '(cre IS NULL OR cre = :c0)';
+			$_SESSION['search-cre'] = $_GET['cre'];
 		}
 
 		if (!empty($_GET['type'])) {
@@ -95,14 +156,9 @@ SQL;
 
 		}
 
-		// If no search terms provided, but filters are present then search all?
+		// If no search terms provided, but filters are present then search all
 		// $res = [];
 		// if (!empty($_GET['q'])) {
-
-			// $sql = 'SELECT id, type, name FROM full_text WHERE ftsv @@ plainto_tsquery(:q0) ORDER BY type, name LIMIT 25';
-			// $res = $dbc->fetchAll($sql, [
-				// ':q0' => $_GET['q'], // @todo Sanitize better
-			// ]);
 
 			// @todo Query into a temp table
 			// Table to Build Report Into
@@ -113,7 +169,6 @@ SQL;
 
 			// SQL::query($sql);
 
-
 			// @todo insert into tmp table directly from the company?
 
 			// @todo select from the tmp table
@@ -121,15 +176,11 @@ SQL;
 		// }
 
 		\App_Menu::addMenuItem('page', '/company/create', '<i class="fas fa-plus-square"></i> Create');
-		//$_ENV['h1'] = $_ENV['title'] = sprintf('Directory :: Search &gt;%d Businesses', round($_SESSION['directory-count-all'], -3));
 
 		$data['Page']['title'] = 'Directory :: Search :: Results';
-		// 	'license_type_list' => array(),
-		// 	'license_type_pick' => $_GET['lt'],
-		// );
 
 		// Add License Type list
-		$sql = 'SELECT count(id) AS c, type FROM license WHERE type IS NOT NULL GROUP BY type ORDER BY 2 ASC';
+		$sql = 'SELECT count(id) AS c, type FROM license WHERE type IS NOT NULL GROUP BY type ORDER BY type ASC';
 		$res = $dbc->fetchAll($sql);
 		$data['license_type_list'] = $res;
 		$data['license_type_pick'] = $_GET['type'];
