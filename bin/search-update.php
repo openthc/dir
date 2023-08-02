@@ -8,15 +8,6 @@
  * @see - Search on PostgreSQL - https://news.ycombinator.com/item?id=17638169
  */
 
-/*
-Update Company
-15082^C
-
-real	17m47.649s
-user	0m2.286s
-sys	0m1.069s
-*/
-
 use Edoceo\Radix\DB\SQL;
 
 require_once(dirname(dirname(__FILE__)) . '/boot.php');
@@ -24,9 +15,9 @@ require_once(dirname(dirname(__FILE__)) . '/boot.php');
 $dbc = _dbc();
 
 // Run the Thing
+_search_update_contact($dbc);
 _search_update_company($dbc);
-// _search_update_license($dbc);
-// _search_update_contact($dbc);
+_search_update_license($dbc);
 
 echo "DONE!\n";
 
@@ -35,7 +26,9 @@ echo "DONE!\n";
  */
 function _search_update_company($dbc)
 {
-	echo "_search_update_company()\n";
+	$idx = 0;
+
+	echo "_search_update_company($idx)";
 
 	$sql_upsert = <<<SQL
 	INSERT INTO search_full_text (id, tb, stat, flag, cre, ftxt, ftsv)
@@ -50,25 +43,24 @@ function _search_update_company($dbc)
 	SQL;
 	$cmd_upsert = $dbc->prepare($sql_upsert);
 
-	$idx = 0;
 	// $sql = 'SELECT * FROM company ORDER BY updated_at DESC LIMIT 500';
 	$sql = 'SELECT * FROM company';
 	$res = $dbc->fetch($sql);
 	foreach ($res as $src) {
 
 		$idx++;
-		echo "\r$idx";
+		echo "\r_search_update_company($idx)";
 
 		if (empty($src['cre'])) {
 			$src['cre'] = null;
 		}
 
-		$name = _company_name_trim_noise($src['name']);
+		$name = _trim_noise($src['name']);
 
 		$text_A = [];
-		$text_A[] = _company_name_trim_noise($src['name']);
-		$text_A[] = _company_name_trim_noise($src['name_alt']);
-		$text_A[] = _company_name_trim_noise($src['name_cre']);
+		$text_A[] = _trim_noise($src['name']);
+		$text_A[] = _trim_noise($src['name_alt']);
+		$text_A[] = _trim_noise($src['name_cre']);
 		$text_A[] = $src['guid'];
 		$text_A = array_filter($text_A);
 
@@ -101,12 +93,21 @@ function _search_update_company($dbc)
  */
 function _search_update_license($dbc)
 {
-	echo "_search_update_license()\n";
+	$idx = 0;
+
+	echo "_search_update_license($idx)\r";
 
 	// Prepare
 	$sql_upsert = <<<SQL
-	INSERT INTO search_full_text (id, tb, ftxt, ftsv) VALUES (:pk, 'license', :txt0, setweight(to_tsvector(:text_A), 'A') || setweight(to_tsvector(:text_B), 'B'))
-	ON CONFLICT (id) DO UPDATE SET ftxt = :txt0, ftsv = setweight(to_tsvector(:text_A), 'A') || setweight(to_tsvector(:text_B), 'B')
+	INSERT INTO search_full_text (id, tb, stat, flag, cre, ftxt, ftsv)
+	VALUES (:pk, 'license', :s1, :f1, :c1, :n1, setweight(to_tsvector(:text_A), 'A') || setweight(to_tsvector(:text_B), 'B'))
+	ON CONFLICT (id) DO
+	UPDATE SET
+		cre = :c1,
+		flag = :f1,
+		stat = :s1,
+		ftxt = :n1,
+		ftsv = setweight(to_tsvector(:text_A), 'A') || setweight(to_tsvector(:text_B), 'B')
 	SQL;
 	$cmd_upsert = $dbc->prepare($sql_upsert);
 
@@ -118,9 +119,9 @@ function _search_update_license($dbc)
 	foreach ($res as $src) {
 
 		$idx++;
-		echo "\r$idx";
+		echo "\r_search_update_license($idx)";
 
-		$name = _company_name_trim_noise($src['name']);
+		$name = _trim_noise($src['name']);
 
 		$text_A = [];
 		$text_A[] = $src['name'];
@@ -139,7 +140,10 @@ function _search_update_license($dbc)
 		// Update
 		$cmd_upsert->execute([
 			':pk' => $src['id'],
-			':txt0' => implode(', ', $text_A),
+			':s1' => $src['stat'],
+			':f1' => $src['flag'],
+			':c1' => $src['cre'],
+			':n1' => $src['name'],
 			':text_A' => implode(' ', $text_A),
 			':text_B' => implode(' ', $text_B),
 		]);
@@ -155,27 +159,31 @@ function _search_update_license($dbc)
  */
 function _search_update_contact($dbc)
 {
-	echo "_search_update_contact()\n";
+	$idx = 0;
+
+	echo "_search_update_contact($idx)\r";
 
 	// Upsert Global Search Table
 	$sql_upsert = <<<SQL
-	INSERT INTO search_full_text (id, tb, ftxt, ftsv)
-	VALUES (:pk, 'contact', :txt0, setweight(to_tsvector(:text_A), 'A') || setweight(to_tsvector(:text_B), 'B'))
+	INSERT INTO search_full_text (id, tb, stat, flag, cre, ftxt, ftsv)
+	VALUES (:pk, 'contact', :s1, :f1, :c1, :n1, setweight(to_tsvector(:text_A), 'A') || setweight(to_tsvector(:text_B), 'B'))
 	ON CONFLICT (id) DO
 	UPDATE SET
-		ftxt = :txt0,
+		cre = :c1,
+		flag = :f1,
+		stat = :s1,
+		ftxt = :n1,
 		ftsv = setweight(to_tsvector(:text_A), 'A') || setweight(to_tsvector(:text_B), 'B')
 	SQL;
 	$cmd_upsert = $dbc->prepare($sql_upsert);
 
 	// Spin
-	$idx = 0;
 	$sql = 'SELECT * FROM contact';
 	$res = $dbc->fetch($sql);
 	foreach ($res as $src) {
 
 		$idx++;
-		echo "\r$idx";
+		echo "\r_search_update_contact($idx)";
 
 		$name = $src['name'];
 		if (empty($name)) {
@@ -196,7 +204,10 @@ function _search_update_contact($dbc)
 		// Update
 		$cmd_upsert->execute([
 			':pk' => $src['id'],
-			':txt0' => implode(', ', $text_A),
+			':s1' => $src['stat'],
+			':f1' => $src['flag'],
+			':c1' => $src['cre'],
+			':n1' => $src['name'],
 			':text_A' => implode(' ', $text_A),
 			':text_B' => implode(' ', $text_B),
 		]);
@@ -207,7 +218,7 @@ function _search_update_contact($dbc)
 }
 
 
-function _company_name_trim_noise($x)
+function _trim_noise($x)
 {
 	$x = preg_replace('/[_,:;\/\?\+\"\'\.\-]+/i', ' ', $x);
 	$x = preg_replace('/\s(inc|llc|pllc)\b/i', '', $x);
