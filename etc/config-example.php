@@ -3,8 +3,10 @@
  * OpenTHC Directory Configuration Example
  */
 
+// Init
 $cfg = [];
 
+// Database
 $cfg['database'] = [
 	'hostname' => '127.0.0.1',
 	'database' => 'openthc_main',
@@ -12,15 +14,19 @@ $cfg['database'] = [
 	'password' => 'openthc_main'
 ];
 
+// Redis
 $cfg['redis'] = [
 	'hostname' => '127.0.0.1',
 	'database' => '0',
 	'publish' => 'openthc_dir_pub',
 ];
 
+// OpenTHC
 $cfg['openthc'] = [
 	'sso' => [
-		'hostname' => 'sso.openthc.dev',
+		'origin' => 'https://sso.openthc.example',
+		'oauth-client-id' => '/* SOME ULID */',
+		'oauth-cleint-sk' => '/* SOME Secret */',
 	]
 ];
 
