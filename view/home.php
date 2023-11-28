@@ -22,7 +22,7 @@
 
 
 <section>
-<div class="container-fluid mt-4 py-4">
+<div class="container mt-4 py-4">
 <div class="row">
 
 	<div class="col-md-3">

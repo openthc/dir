@@ -1,13 +1,13 @@
 
 <form action="/search" autocomplete="off" method="get">
 <div class="container mt-2">
-<div class="form-inline">
+<div class="row row-cols-lg-auto g-2 align-items-center">
 
-	<div class="form-group mr-2">
+	<div class="col-12">
 		<input autocomplete="off" autofocus class="form-control" name="q" placeholder="Search Name, UBI, License, City, etc" type="text" value="<?= __h($_GET['q']) ?>">
 	</div>
 
-	<div class="form-group mr-2">
+	<div class="col-12">
 		<select class="form-control" name="type">
 			<option value="">- All License Types -</option>
 			<?php
@@ -19,7 +19,7 @@
 		</select>
 	</div>
 
-	<div class="form-group mr-2">
+	<div class="col-12">
 		<select class="form-control" name="cre">
 			<option value="">- Any Region -</option>
 			<?php
@@ -31,7 +31,7 @@
 		</select>
 	</div>
 
-	<div class="form-group mr-2">
+	<div class="col-12">
 		<div class="btn-group">
 			<button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i> Search</button>
 			<a class="btn btn-outline-primary" href="<?= $data['map_link'] ?>"><i class="fas fa-map"></i> Map</a>
