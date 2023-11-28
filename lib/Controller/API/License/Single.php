@@ -11,6 +11,9 @@ class Single extends \OpenTHC\Directory\Controller\API\Base
 {
 	private $_Service; // Service making the Request
 
+	/**
+	 *
+	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$this->_Service = $REQ->getAttribute('Service');
@@ -34,7 +37,7 @@ class Single extends \OpenTHC\Directory\Controller\API\Base
 
 		_exit_json([
 			'data' => null,
-			'meta' => [ 'detail' => 'Not Found [ALS-033]' ],
+			'meta' => [ 'note' => 'Not Found [ALS-033]' ],
 		], 404);
 
 	}
@@ -138,19 +141,19 @@ class Single extends \OpenTHC\Directory\Controller\API\Base
 	function help($RES)
 	{
 		$text = <<<EOT
-# OpenTHC Directory License API
+		# OpenTHC Directory License API
 
-Your Application will need to [Register](https://openthc.com/oauth2/app/register) to get an API Key.
+		Your Application will need to [Register](https://openthc.com/oauth2/app/register) to get an API Key.
 
-	GET /api/license?q={TERM}
-	GET /api/license?q={TERM}&cre=co
-	GET /api/license?q={TERM}&state=co
-	GET /api/license?q={TERM}&company={TERM}
-	GET /api/license?q={TERM}&license={CODE|GUID}
-	GET /api/license?q={TERM}&address={TERM}
-	GET /api/license?q={FIELD}:{TERM}
+			GET /api/license?q={TERM}
+			GET /api/license?q={TERM}&cre=co
+			GET /api/license?q={TERM}&state=co
+			GET /api/license?q={TERM}&company={TERM}
+			GET /api/license?q={TERM}&license={CODE|GUID}
+			GET /api/license?q={TERM}&address={TERM}
+			GET /api/license?q={FIELD}:{TERM}
 
-EOT;
+		EOT;
 
 		$data = array(
 			'Page' => array(

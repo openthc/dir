@@ -9,6 +9,9 @@ namespace OpenTHC\Directory\Controller\API\Contact;
 
 class Search extends \OpenTHC\Directory\Controller\API\Base
 {
+	/**
+	 *
+	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$sql_filter_c = array();
@@ -59,7 +62,7 @@ class Search extends \OpenTHC\Directory\Controller\API\Base
 		$res = $dbc->fetchAll($sql, $sql_filter_v);
 		if (0 == count($res)) {
 			_exit_json([
-				'meta' => [ 'detail' => 'Not Found [ACS#058]' ],
+				'meta' => [ 'note' => 'Not Found [ACS#058]' ],
 				'data' => null,
 			], 404);
 		}

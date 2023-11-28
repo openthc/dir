@@ -14,7 +14,7 @@ class Search extends \OpenTHC\Directory\Controller\API\Base
 		if (empty($_GET)) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'detail' => 'Invalid Search Request [ALS#018]' ],
+				'meta' => [ 'note' => 'Invalid Search Request [ALS#018]' ],
 			], 400);
 		}
 
@@ -45,11 +45,6 @@ class Search extends \OpenTHC\Directory\Controller\API\Base
 
 		$dbc = _dbc();
 		$res = $dbc->fetchAll($sql, $arg);
-
-		// print_r($sql);
-		// print_r($arg);
-		// print_r($res);
-		// exit;
 
 		$out = [];
 		$out['data'] = [];
@@ -234,7 +229,7 @@ class Search extends \OpenTHC\Directory\Controller\API\Base
 			//return $RES->withJSON(array(
 			_exit_json([
 				'data' => null,
-				'meta' => [ 'detail' => 'Invalid Search Request [MLS#142]' ],
+				'meta' => [ 'note' => 'Invalid Search Request [MLS#142]' ],
 				//'_try' => $sql_try_list,
 				//'_sql' => $sql,
 				//'_res' => print_r($res, true),
@@ -285,11 +280,10 @@ class Search extends \OpenTHC\Directory\Controller\API\Base
 		}
 
 		if (empty($res)) {
-			_exit_json(array(
-				'status' => 'failure',
-				'result' => 'Nothing Found',
-				'_sql' => $sql_try_list,
-			), 404);
+			_exit_json([
+				'data' => null,
+				'meta' => [ 'note' => 'Not Found' ]
+			], 404);
 		}
 
 		$ret = null;

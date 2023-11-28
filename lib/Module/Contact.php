@@ -11,10 +11,10 @@ class Contact extends \OpenTHC\Module\Base
 {
 	function __invoke($a)
 	{
-		$a->get('', 'OpenTHC\Directory\Controller\Contact\Single');
+		$a->get('', 'OpenTHC\Directory\Controller\Contact\Main');
 
 		// Create
-		$a->get('/create', 'OpenTHC\Directory\Controller\Contact\View');
+		$a->get('/create', 'OpenTHC\Directory\Controller\Contact\Create');
 		$a->post('/create', 'OpenTHC\Directory\Controller\Contact\Save');
 
 		// Update
