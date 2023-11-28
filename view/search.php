@@ -161,33 +161,33 @@ if (!empty($_GET['shit'])) {
 
 	// Company
 	$sql = <<<SQL
-SELECT *
-FROM company
-WHERE name MATCH :q OR body MATCH :q OR tags MATCH :q
-ORDER BY rank
-SQL;
+	SELECT *
+	FROM company
+	WHERE name MATCH :q OR body MATCH :q OR tags MATCH :q
+	ORDER BY rank
+	SQL;
 
 	$res = $dbc_cache->fetchAll($sql, [ ':q' => $_GET['q'] ]);
 	// var_dump($res);
 
 	// License
 	$sql = <<<SQL
-SELECT *
-FROM license
-WHERE name MATCH :q OR body MATCH :q OR tags MATCH :q
-ORDER BY rank
-SQL;
+	SELECT *
+	FROM license
+	WHERE name MATCH :q OR body MATCH :q OR tags MATCH :q
+	ORDER BY rank
+	SQL;
 
 	$res = $dbc_cache->fetchAll($sql, [ ':q' => $_GET['q'] ]);
 	// var_dump($res);
 
 	// Contact
 	$sql = <<<SQL
-SELECT *
-FROM contact
-WHERE name MATCH :q OR body MATCH :q OR tags MATCH :q
-ORDER BY rank
-SQL;
+	SELECT *
+	FROM contact
+	WHERE name MATCH :q OR body MATCH :q OR tags MATCH :q
+	ORDER BY rank
+	SQL;
 
 	$res = $dbc_cache->fetchAll($sql, [ ':q' => $_GET['q'] ]);
 	// var_dump($res);

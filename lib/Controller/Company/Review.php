@@ -15,11 +15,11 @@ class Review extends \OpenTHC\Controller\Base
 		_acl_exit($_SESSION['Contact']['id'], 'company', 'review');
 
 		$sql = <<<SQL
-SELECT DISTINCT length(company.name) AS cnl, company.id, company.name, company.type, company.guid, company.updated_at, license.code AS license_code
-FROM company
-LEFT JOIN license ON company.id = license.company_id
-WHERE 1 = 1
-SQL;
+		SELECT DISTINCT length(company.name) AS cnl, company.id, company.name, company.type, company.guid, company.updated_at, license.code AS license_code
+		FROM company
+		LEFT JOIN license ON company.id = license.company_id
+		WHERE 1 = 1
+		SQL;
 
 		if (!empty($_GET['cre'])) {
 			$sql.= ' AND company.cre = :cre';

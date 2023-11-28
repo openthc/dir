@@ -1,6 +1,8 @@
 <?php
 /**
- * OpenTHC Main Controller
+ * OpenTHC Directory Main Controller
+ *
+ * SPDX-License-Identifier: GPL-3.0-only
  */
 
 use Edoceo\Radix;

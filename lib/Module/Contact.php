@@ -1,6 +1,8 @@
 <?php
 /*
  * Module for Contact Routes
+ *
+ * SPDX-License-Identifier: GPL-3.0-only
  */
 
 namespace OpenTHC\Directory\Module;

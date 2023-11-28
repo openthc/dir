@@ -1,6 +1,8 @@
 <?php
 /**
  * Create a Contact
+ *
+ * SPDX-License-Identifier: GPL-3.0-only
  */
 
 namespace OpenTHC\Directory\Controller\Contact;
@@ -18,11 +20,11 @@ class Main extends \OpenTHC\Controller\Base
 		);
 
 		$sql = <<<SQL
-SELECT id, name, email, phone
-FROM contact
-WHERE stat = 200
-ORDER BY id
-SQL;
+		SELECT id, name, email, phone
+		FROM contact
+		WHERE stat = 200
+		ORDER BY id
+		SQL;
 		$arg = [];
 
 		$dbc = _dbc();

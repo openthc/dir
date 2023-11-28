@@ -1,6 +1,8 @@
 <?php
 /**
  * Search for Company (& License)
+ *
+ * SPDX-License-Identifier: GPL-3.0-only
  */
 
 namespace OpenTHC\Directory\Controller\API\License;
@@ -28,13 +30,13 @@ class Search extends \OpenTHC\Directory\Controller\API\Base
 	function findLicense($RES)
 	{
 		$sql = <<<SQL
-SELECT license.*
-, license.id AS license_id
-FROM license
-LEFT JOIN company ON license.company_id = company.id
-WHERE license.id = :q0 OR license.guid = :q0 OR license.name ILIKE :q1
-ORDER BY license.name
-SQL;
+		SELECT license.*
+		, license.id AS license_id
+		FROM license
+		LEFT JOIN company ON license.company_id = company.id
+		WHERE license.id = :q0 OR license.guid = :q0 OR license.name ILIKE :q1
+		ORDER BY license.name
+		SQL;
 
 		$arg = [
 			':q0' => $_GET['q'],
