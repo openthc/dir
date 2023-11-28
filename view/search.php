@@ -43,6 +43,21 @@
 </form>
 
 
+<?php
+if (empty($_GET['q'])) {
+	echo '<div class="container mt-2">';
+	echo '<div class="alert alert-info">No Query Provided</div>';
+	echo '</div>';
+	return 0;
+}
+if (empty($data['result_list'])) {
+	echo '<div class="container mt-2">';
+	echo '<div class="alert alert-info">No Results Found</div>';
+	echo '</div>';
+	return 0;
+}
+?>
+
 <div class="container mt-2">
 <table class="table table-sm">
 <thead class="thead-dark">
