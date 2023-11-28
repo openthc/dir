@@ -5,6 +5,8 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
+namespace OpenTHC\Directory;
+
 class App_Menu
 {
 	private static $_menu = array();

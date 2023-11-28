@@ -5,6 +5,8 @@
 
 use Edoceo\Radix;
 
+use OpenTHC\Directory\App_Menu;
+
 $id_menu = 'ot-menu-head';
 
 if (empty($_ENV['home-link'])) {

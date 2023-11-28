@@ -7,6 +7,8 @@
 
 namespace OpenTHC\Directory\Controller;
 
+use OpenTHC\Directory\App_Menu;
+
 class Search extends \OpenTHC\Controller\Base
 {
 	/**
@@ -175,7 +177,7 @@ class Search extends \OpenTHC\Controller\Base
 
 		// }
 
-		\App_Menu::addMenuItem('page', '/company/create', '<i class="fas fa-plus-square"></i> Create');
+		App_Menu::addMenuItem('page', '/company/create', '<i class="fas fa-plus-square"></i> Create');
 
 		$data['Page']['title'] = 'Directory :: Search :: Results';
 
