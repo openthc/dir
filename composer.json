@@ -3,15 +3,16 @@
 	"description": "OpenTHC Directory",
 	"license": "proprietary",
 	"autoload": {
+		"exclude-from-classmap": [
+			"/vendor/erusev/parsedown-extra/test"
+		],
 		"psr-4": {
 			"OpenTHC\\Directory\\": "./lib",
 			"OpenTHC\\Directory\\Test\\": "./test"
-		},
-		"exclude-from-classmap": [
-			"/vendor/erusev/parsedown-extra/test"
-		]
+		}
 	},
 	"require": {
+		"docopt/docopt": "1.0.5",
 		"edoceo/radix": "2021.0.0",
 		"edoceo/lowline": "2022.0.280",
 		"geoip2/geoip2": "2.13.0",
