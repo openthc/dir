@@ -14,7 +14,7 @@ class Search extends \OpenTHC\Directory\Controller\API\Base
 		if (empty($_GET)) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'note' => 'Invalid Search Request [ALS#018]' ],
+				'meta' => [ 'note' => 'Invalid Search Request [ALS-018]' ],
 			], 400);
 		}
 

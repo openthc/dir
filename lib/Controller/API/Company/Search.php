@@ -216,9 +216,6 @@ class Search extends \OpenTHC\Directory\Controller\API\Base
 
 		}
 
-		//print_r($ret);
-		//exit;
-
 		if ($ret) {
 			_exit_json([
 				'data' => $ret,
