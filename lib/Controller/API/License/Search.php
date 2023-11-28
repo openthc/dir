@@ -3,9 +3,9 @@
  * Search for Company (& License)
  */
 
-namespace App\Controller\API\License;
+namespace OpenTHC\Directory\Controller\API\License;
 
-class Search extends \App\Controller\API\Base
+class Search extends \OpenTHC\Directory\Controller\API\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

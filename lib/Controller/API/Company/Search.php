@@ -3,15 +3,15 @@
  *
  */
 
-namespace App\Controller\API\Company;
+namespace OpenTHC\Directory\Controller\API\Company;
 
 use Edoceo\Radix;
 
-use App\License;
+use OpenTHC\Directory\License;
 
 require_once(APP_ROOT . '/controller/search.php');
 
-class Search extends \App\Controller\API\Base
+class Search extends \OpenTHC\Directory\Controller\API\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

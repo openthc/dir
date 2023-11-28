@@ -3,7 +3,7 @@
  *
  */
 
-namespace App\Middleware;
+namespace OpenTHC\Directory\Middleware;
 
 class Menu extends \OpenTHC\Middleware\Base
 {

@@ -3,7 +3,7 @@
  * Create a Contact
  */
 
-namespace App\Controller\Contact;
+namespace OpenTHC\Directory\Controller\Contact;
 
 use OpenTHC\Contact;
 

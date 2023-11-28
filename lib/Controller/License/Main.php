@@ -3,7 +3,7 @@
  *
  */
 
-namespace App\Controller\License;
+namespace OpenTHC\Directory\Controller\License;
 
 class Main extends \OpenTHC\Controller\Base
 {

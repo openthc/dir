@@ -3,7 +3,7 @@
  * oAuth2 Returns Here
  */
 
-namespace App\Controller\Auth\oAuth2;
+namespace OpenTHC\Directory\Controller\Auth\oAuth2;
 
 use Edoceo\Radix\Session;
 

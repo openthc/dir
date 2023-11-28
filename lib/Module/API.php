@@ -3,7 +3,7 @@
  * Module for Contact Routes
  */
 
-namespace App\Module;
+namespace OpenTHC\Directory\Module;
 
 class API extends \OpenTHC\Module\Base
 {

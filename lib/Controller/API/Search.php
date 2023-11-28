@@ -1,15 +1,17 @@
 <?php
 /**
-	Search for Company / License
-*/
+ * Search for Company / License
+ *
+ * SPDX-License-Identifier: GPL-3.0-only
+ */
 
-namespace App\Controller\API;
+namespace OpenTHC\Directory\Controller\API;
 
 use Edoceo\Radix\DB\SQL;
 
 require_once(APP_ROOT . '/controller/search.php');
 
-class Search extends \App\Controller\API\Base
+class Search extends \OpenTHC\Directory\Controller\API\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

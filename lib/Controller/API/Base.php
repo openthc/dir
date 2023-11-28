@@ -1,9 +1,11 @@
 <?php
 /**
-	Base Controller
-*/
+ * Base Controller
+ *
+ * SPDX-License-Identifier: GPL-3.0-only
+ */
 
-namespace App\Controller\API;
+namespace OpenTHC\Directory\Controller\API;
 
 class Base extends \OpenTHC\Controller\Base
 {

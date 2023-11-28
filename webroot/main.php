@@ -15,70 +15,60 @@ header('Content-Language: en');
 // Mangle SERVER data
 require_once(dirname(dirname(__FILE__)) . '/boot.php');
 
-\OpenTHC\Config::init(APP_ROOT);
-
 $cfg = [];
-// $cfg['debug'] = true;
+$cfg['debug'] = true;
 $app = new \OpenTHC\App($cfg);
 
-$con = $app->getContainer();
 
 // API
-$app->group('/api', 'App\Module\API');
+$app->group('/api', 'OpenTHC\Directory\Module\API');
+
+
+// Core System Objects
+$app->group('/company', 'OpenTHC\Directory\Module\Company')
+	->add('OpenTHC\Directory\Middleware\Menu')
+	->add('OpenTHC\Middleware\Session');
+
+$app->group('/contact', 'OpenTHC\Directory\Module\Contact')
+	->add('OpenTHC\Directory\Middleware\Menu')
+	->add('OpenTHC\Middleware\Session');
+
+$app->group('/license', 'OpenTHC\Directory\Module\License')
+	->add('OpenTHC\Directory\Middleware\Menu')
+	->add('OpenTHC\Middleware\Session');
 
 
 // Browse
-// $app->get('/browse', 'App\Controller\Browse')
-// 	->add('App\Middleware\Menu')
+// $app->get('/browse', 'OpenTHC\Directory\Controller\Browse')
+// 	->add('OpenTHC\Directory\Middleware\Menu')
 // 	->add('OpenTHC\Middleware\Session');
 
 
 // Map
-$app->get('/map', 'App\Controller\Map')
-	->add('App\Middleware\Menu')
+$app->get('/map', 'OpenTHC\Directory\Controller\Map')
+	->add('OpenTHC\Directory\Middleware\Menu')
 	->add('OpenTHC\Middleware\Session');
 
 
 // Search
-$app->get('/search', 'App\Controller\Search')
-	->add('App\Middleware\Menu')
-	->add('OpenTHC\Middleware\Session');
-
-
-// $app->get('/labs', function($REQ, $RES, $ARG) {
-// 	return $RES->withRedirect('/search?type=Laboratory');
-// });
-// // $app->get('/laboratories', 'App\Controller\Search:lab');
-// // $app->get('/medical', 'App\Controller\Medical');
-
-
-// Core System Objects
-$app->group('/company', 'App\Module\Company')
-	->add('App\Middleware\Menu')
-	->add('OpenTHC\Middleware\Session');
-
-$app->group('/contact', 'App\Module\Contact')
-	->add('App\Middleware\Menu')
-	->add('OpenTHC\Middleware\Session');
-
-$app->group('/license', 'App\Module\License')
-	->add('App\Middleware\Menu')
+$app->get('/search', 'OpenTHC\Directory\Controller\Search')
+	->add('OpenTHC\Directory\Middleware\Menu')
 	->add('OpenTHC\Middleware\Session');
 
 
 // Authentication
 $app->group('/auth', function() {
 
-	$this->get('', 'App\Controller\Auth\oAuth2\Open'); // @deprecated path?
-	$this->get('/open', 'App\Controller\Auth\oAuth2\Open');
-	$this->map(['GET', 'POST'], '/connect', 'App\Controller\Auth\Connect');
-	$this->get('/back', 'App\Controller\Auth\oAuth2\Back');
+	$this->get('', 'OpenTHC\Directory\Controller\Auth\oAuth2\Open'); // @deprecated path?
+	$this->get('/open', 'OpenTHC\Directory\Controller\Auth\oAuth2\Open');
+	$this->map(['GET', 'POST'], '/connect', 'OpenTHC\Directory\Controller\Auth\Connect');
+	$this->get('/back', 'OpenTHC\Directory\Controller\Auth\oAuth2\Back');
 	$this->get('/fail', 'OpenTHC\Controller\Auth\Fail');
 	$this->get('/ping', 'OpenTHC\Controller\Auth\Ping');
 	$this->get('/shut', 'OpenTHC\Controller\Auth\Shut');
 
 })
-->add('App\Middleware\Menu')
+->add('OpenTHC\Directory\Middleware\Menu')
 ->add('OpenTHC\Middleware\Session');
 
 
