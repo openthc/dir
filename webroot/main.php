@@ -26,6 +26,10 @@ $app = new \OpenTHC\App($cfg);
 $app->group('/api', 'OpenTHC\Directory\Module\API');
 
 
+// Homepage
+$app->get('/home', 'OpenTHC\Directory\Controller\Home');
+
+
 // Core System Objects
 $app->group('/company', 'OpenTHC\Directory\Module\Company')
 	->add('OpenTHC\Directory\Middleware\Menu')
@@ -39,6 +43,9 @@ $app->group('/license', 'OpenTHC\Directory\Module\License')
 	->add('OpenTHC\Directory\Middleware\Menu')
 	->add('OpenTHC\Middleware\Session');
 
+$app->group('/channel', 'OpenTHC\Directory\Module\Channel')
+	->add('OpenTHC\Directory\Middleware\Menu')
+	->add('OpenTHC\Middleware\Session');
 
 // Browse
 // $app->get('/browse', 'OpenTHC\Directory\Controller\Browse')
