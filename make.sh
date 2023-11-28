@@ -16,8 +16,15 @@ case "$1" in
 # Install Stuff
 install)
 
-	npm update
 	composer update --no-ansi --no-dev --no-progress --quiet --classmap-authoritative
+
+	npm install --quiet
+
+	. vendor/openthc/common/lib/lib.sh
+
+	copy_bootstrap
+	copy_fontawesome
+	copy_jquery
 
 	;;
 
