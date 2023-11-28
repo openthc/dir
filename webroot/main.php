@@ -30,6 +30,24 @@ $app->group('/api', 'OpenTHC\Directory\Module\API');
 $app->get('/home', 'OpenTHC\Directory\Controller\Home');
 
 
+// Browse
+// $app->get('/browse', 'OpenTHC\Directory\Controller\Browse')
+// 	->add('OpenTHC\Directory\Middleware\Menu')
+// 	->add('OpenTHC\Middleware\Session');
+
+
+// Map
+$app->get('/map', 'OpenTHC\Directory\Controller\Map')
+	->add('OpenTHC\Directory\Middleware\Menu')
+	->add('OpenTHC\Middleware\Session');
+
+
+// Search
+$app->get('/search', 'OpenTHC\Directory\Controller\Search')
+	->add('OpenTHC\Directory\Middleware\Menu')
+	->add('OpenTHC\Middleware\Session');
+
+
 // Core System Objects
 $app->group('/company', 'OpenTHC\Directory\Module\Company')
 	->add('OpenTHC\Directory\Middleware\Menu')
@@ -47,22 +65,6 @@ $app->group('/channel', 'OpenTHC\Directory\Module\Channel')
 	->add('OpenTHC\Directory\Middleware\Menu')
 	->add('OpenTHC\Middleware\Session');
 
-// Browse
-// $app->get('/browse', 'OpenTHC\Directory\Controller\Browse')
-// 	->add('OpenTHC\Directory\Middleware\Menu')
-// 	->add('OpenTHC\Middleware\Session');
-
-
-// Map
-$app->get('/map', 'OpenTHC\Directory\Controller\Map')
-	->add('OpenTHC\Directory\Middleware\Menu')
-	->add('OpenTHC\Middleware\Session');
-
-
-// Search
-$app->get('/search', 'OpenTHC\Directory\Controller\Search')
-	->add('OpenTHC\Directory\Middleware\Menu')
-	->add('OpenTHC\Middleware\Session');
 
 
 // Authentication
