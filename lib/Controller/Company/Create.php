@@ -58,8 +58,9 @@ class Create extends \OpenTHC\Controller\Base
 		}
 
 		// Company Type Options
+		$dbc = _dbc();
 		$Company_Type_list = array();
-		$res = $this->_container->DB->fetchAll('SELECT count(id) AS c, type FROM company GROUP BY type ORDER BY 1');
+		$res = $dbc->fetchAll('SELECT count(id) AS c, type FROM company GROUP BY type ORDER BY 1');
 		foreach ($res as $rec) {
 			$Company_Type_list[ $rec['type'] ] = sprintf('%s (%d)', $rec['type'], $rec['c']);
 		}

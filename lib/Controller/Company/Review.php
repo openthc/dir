@@ -65,7 +65,7 @@ class Review extends \OpenTHC\Controller\Base
 
 		$sql.= ' LIMIT 100';
 
-		$dbc = $this->_container->DB;
+		$dbc = _dbc();
 		$res = $dbc->fetchAll($sql, $arg);
 
 		$data = array(

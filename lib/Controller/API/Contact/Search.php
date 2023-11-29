@@ -58,7 +58,7 @@ class Search extends \OpenTHC\Directory\Controller\API\Base
 		$sql.= ' ORDER BY name';
 		$sql.= ' LIMIT 10';
 
-		$dbc = $this->_container->DB;
+		$dbc = _dbc();
 		$res = $dbc->fetchAll($sql, $sql_filter_v);
 		if (0 == count($res)) {
 			_exit_json([

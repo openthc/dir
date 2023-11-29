@@ -26,15 +26,34 @@ function _acl()
 	return true;
 }
 
-function _dbc($conn=null)
+/**
+ * Database Connection Helper
+ */
+function _dbc($conn='main')
 {
-	static $dbc = null;
+	static $dbc_list = [];
 
-	if (empty($dbc)) {
-		$cfg = \OpenTHC\Config::get('database');
-		$dsn = sprintf('pgsql:host=%s;dbname=%s', $cfg['hostname'], $cfg['database']);
-		$dbc = new \Edoceo\Radix\DB\SQL($dsn, $cfg['username'], $cfg['password']);
+	if ( ! empty($dbc_list[$conn])) {
+		return $dbc_list[$conn];
+	}
+
+	$dbc = null;
+
+	switch ($conn) {
+		case 'auth':
+		case 'main':
+			$cfg = \OpenTHC\Config::get(sprintf('database/%s', $conn));
+			$dsn = sprintf('pgsql:application_name=openthc-dir;host=%s;dbname=%s', $cfg['hostname'], $cfg['database']);
+			$dbc = new \Edoceo\Radix\DB\SQL($dsn, $cfg['username'], $cfg['password']);
+			break;
+		// default:
+		// 	$dbc = new \Edoceo\Radix\DB\SQL($conn);
+	}
+
+	if ( ! empty($dbc)) {
+		$dbc_list[$conn] = $dbc;
 	}
 
 	return $dbc;
+
 }

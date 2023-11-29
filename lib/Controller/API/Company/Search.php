@@ -165,7 +165,7 @@ class Search extends \OpenTHC\Directory\Controller\API\Base
 			'license.meta',
 		);
 
-		$dbc = $this->_container->DB;
+		$dbc = _dbc();
 
 		// var_dump($sql_try_list); exit;
 

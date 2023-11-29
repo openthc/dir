@@ -171,7 +171,7 @@ class Single extends \OpenTHC\Directory\Controller\API\Base
 	 */
 	function query($where, $op='=')
 	{
-		$dbc = $this->_container->DB;
+		$dbc = _dbc();
 
 		$sql.= ' SELECT license.id';
 		$sql.= ', company.guid AS company_guid';
