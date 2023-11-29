@@ -1,6 +1,8 @@
 <?php
 /**
  * OpenTHC Directory Bootstrap
+ *
+ * SPDX-License-Identifier: GPL-3.0-only
  */
 
 define('APP_ROOT', __DIR__);
@@ -11,7 +13,13 @@ openlog('openthc-dir', LOG_ODELAY|LOG_PID, LOG_LOCAL0);
 
 require_once(APP_ROOT . '/vendor/autoload.php');
 
-\OpenTHC\Config::init(APP_ROOT);
+if ( ! \OpenTHC\Config::init(APP_ROOT) ) {
+	_exit_html_fail('<h1>Invalid Application Configuration [ALB-035]</h1>', 500);
+}
+
+define('OPENTHC_SERVICE_ID', \OpenTHC\Config::get('openthc/dir/id'));
+define('OPENTHC_SERVICE_ORIGIN', \OpenTHC\Config::get('openthc/dir/origin'));
+
 
 function _acl()
 {
