@@ -6,13 +6,17 @@
 #
 
 set -o errexit
-# set -o nounset
+set -o errtrace
+set -o nounset
+set -o pipefail
 
 BIN_SELF=$(readlink -f "$0")
 APP_ROOT=$(dirname "$BIN_SELF")
 
+action=${1:-help}
+
 # Do Stuff
-case "$1" in
+case "$action" in
 # Install Stuff
 install)
 
@@ -36,7 +40,7 @@ update-search)
 	;;
 
 # Help, the default target
-*)
+"help"|*)
 
 	echo
 	echo "You must supply a make command"
