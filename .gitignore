@@ -18,6 +18,7 @@ build/
 composer.lock
 Custom/
 etc/
+import-data/
 node_modules/
 public/
 release/
