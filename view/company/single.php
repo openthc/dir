@@ -9,6 +9,7 @@ use Edoceo\Radix;
 use Edoceo\Radix\DB\SQL;
 
 use OpenTHC\Company;
+use OpenTHC\Directory\App_Menu;
 
 $_ENV['h1'] = $_ENV['title'] = 'Company';
 
