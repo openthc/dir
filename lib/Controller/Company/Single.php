@@ -28,13 +28,12 @@ class Single extends \OpenTHC\Controller\Base
 		$dbc = _dbc();
 
 		// Try like heck to find it
-		$Company = $dbc->fetchRow('SELECT * FROM company WHERE id = ?', [ $pk ]);
+		$Company = new Company($dbc, $pk);
 		if (empty($Company['id'])) {
-			$Company = $dbc->fetchRow('SELECT * FROM company WHERE guid = ?', [ $pk ]);
+			$Company->findBy([ 'guid' => $pk ]);
 		}
-
-		// 404
 		if (empty($Company['id'])) {
+			// 404
 			_exit_html_warn('<h1>Company Not Found</h1>', 404, [ 'title' => 'Not Found ']);
 		}
 

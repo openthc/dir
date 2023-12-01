@@ -94,7 +94,7 @@ if ( ! empty($Company['logo'])) {
 		</div>
 
 		<div style="position:absolute; top:0.25em; right:0.25em;">
-			<!-- <?= UI_License::icon($Company) ?> -->
+			<?= $Company->getIcon() ?>
 			<!--
 			<button class="btn btn-sm" data-toggle="modal" data-target="#modal-company-icon-upload" title="Upload a Logo" type="button"><i class="fas fa-upload"></i></button>
 			-->
@@ -322,8 +322,7 @@ if (_acl($_SESSION['Contact']['id'], 'contact', 'create')) {
 
 
 <?php
-require_once(APP_ROOT . '/block/modal-company-verify.php');
-
+echo $this->block('modal-company-verify');
 
 // Drop a Pin
 $cpt = array(); // Center Point
