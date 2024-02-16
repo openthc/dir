@@ -115,11 +115,11 @@ class License extends \OpenTHC\License
 			'CANNABIS PRODUCER TIER 3' => 'Grower',
 			'GROWER' => 'Grower',
 
-			'J' => 'Grower,Processor',
-			'CULTIVATOR_PRODUCTION' => 'Grower,Processor',
-			'CANNABIS PRODUCER TIER 1,CANNABIS PROCESSOR' => 'Grower,Processor',
-			'CANNABIS PRODUCER TIER 2,CANNABIS PROCESSOR' => 'Grower,Processor',
-			'CANNABIS PRODUCER TIER 3,CANNABIS PROCESSOR' => 'Grower,Processor',
+			'J' => 'Grower+Processor',
+			'CULTIVATOR_PRODUCTION' => 'Grower+Processor',
+			'CANNABIS PRODUCER TIER 1,CANNABIS PROCESSOR' => 'Grower+Processor',
+			'CANNABIS PRODUCER TIER 2,CANNABIS PROCESSOR' => 'Grower+Processor',
+			'CANNABIS PRODUCER TIER 3,CANNABIS PROCESSOR' => 'Grower+Processor',
 
 			'L' => 'Laboratory',
 			'LAB' => 'Laboratory',
