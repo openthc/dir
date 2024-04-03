@@ -16,7 +16,7 @@
 		"edoceo/radix": "2021.0.0",
 		"edoceo/lowline": "2022.0.280",
 		"geoip2/geoip2": "2.13.0",
-		"league/oauth2-client": "2.6.1",
+		"league/oauth2-client": "2.7.0",
 		"openthc/common": "dev-master",
 		"openthc/cre-adapter": "dev-master",
 		"phpoffice/phpspreadsheet": "1.28.0",
@@ -24,8 +24,8 @@
 		"tuupola/base32": "2.0.0"
 	},
 	"require-dev": {
-		"phpstan/phpstan": "1.10.5",
-		"phpunit/phpunit": "9.6.4",
-		"php-webdriver/webdriver": "1.14.0"
+		"phpstan/phpstan": "1.10.66",
+		"phpunit/phpunit": "9.6.18",
+		"php-webdriver/webdriver": "1.15.1"
 	}
 }
