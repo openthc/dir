@@ -12,9 +12,6 @@
 		}
 	},
 	"require": {
-		"docopt/docopt": "1.0.5",
-		"edoceo/radix": "2021.0.0",
-		"edoceo/lowline": "2022.0.280",
 		"geoip2/geoip2": "2.13.0",
 		"league/oauth2-client": "2.7.0",
 		"openthc/common": "dev-main",
