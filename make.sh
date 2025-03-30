@@ -1,8 +1,6 @@
 #!/bin/bash
 #
-# Install Helper
-#
-# SPDX-License-Identifier: GPL-3.0-only
+# Top-Level Make the App Do Stuff Script
 #
 
 set -o errexit
@@ -10,42 +8,28 @@ set -o errtrace
 set -o nounset
 set -o pipefail
 
-BIN_SELF=$(readlink -f "$0")
-APP_ROOT=$(dirname "$BIN_SELF")
+APP_ROOT=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-action=${1:-help}
+cd "$APP_ROOT"
 
-# Do Stuff
-case "$action" in
-# Install Stuff
-install)
+composer install --no-ansi --no-progress --quiet --classmap-authoritative
 
-	composer update --no-ansi --no-dev --no-progress --quiet --classmap-authoritative
+npm install --no-audit --no-fund --package-lock-only --silent
 
-	npm install --quiet
+php <<PHP
+<?php
+require_once(__DIR__ . '/boot.php');
 
-	. vendor/openthc/common/lib/lib.sh
+\OpenTHC\Make::install_bootstrap();
+\OpenTHC\Make::install_fontawesome();
+\OpenTHC\Make::install_jquery();
 
-	copy_bootstrap
-	copy_fontawesome
-	copy_jquery
+PHP
 
-	;;
+# lodash
+# mkdir -p webroot/vendor/lodash/
+# cp node_modules/lodash/lodash.min.js webroot/vendor/lodash/
 
-# Update the Search Thing
-update-search)
-
-	./bin/search-update.php
-
-	;;
-
-# Help, the default target
-"help"|*)
-
-	echo
-	echo "You must supply a make command"
-	echo
-	awk '/^# [A-Z\-].+/ { h=$0 }; /^[0-9a-z\-]+\)/ { printf " \033[0;49;31m%-15s\033[0m%s\n", gensub(/\)$/, "", 1, $$1), h }' "$BIN_SELF" |sort
-	echo
-
-esac
+# htmx
+# mkdir -p webroot/vendor/htmx
+# cp node_modules/htmx.org/dist/htmx.min.js webroot/vendor/htmx/

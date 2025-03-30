@@ -1,31 +1,31 @@
 {
-  "name": "directory",
-  "version": "420.19.119",
-  "description": "Cannabis Industry Directory",
-  "main": "test.js",
-  "directories": {
-    "test": "test"
-  },
-  "dependencies": {
-    "@fortawesome/fontawesome-free": "6.4.2",
-    "bootstrap": "5.3.2",
-    "jquery": "3.7.1",
-    "jquery-ui": "1.13.2",
-    "jscpd": "^3.5.9",
-    "jsonschema": "^1.2.2",
-    "sqlite": "^4.0.23",
-    "sqlite3": "^5.0.2"
-  },
-  "scripts": {
-    "test": "test.js"
-  },
-  "keywords": [
-    "cannabis"
-  ],
-  "author": "OpenTHC",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/openthc/directory/issues"
-  },
-  "homepage": "https://github.com/openthc/directory#readme"
+	"name": "directory",
+	"version": "420.19.119",
+	"description": "Cannabis Industry Directory",
+	"main": "test.js",
+	"directories": {
+		"test": "test"
+	},
+	"dependencies": {
+		"@fortawesome/fontawesome-free": "6.7.2",
+		"bootstrap": "5.3.3",
+		"jquery": "3.7.1",
+		"jquery-ui": "1.14.1",
+		"jscpd": "4.0.5",
+		"jsonschema": "^1.2.2",
+		"sqlite": "^4.0.23",
+		"sqlite3": "^5.0.2"
+	},
+	"scripts": {
+		"test": "test.js"
+	},
+	"keywords": [
+		"cannabis"
+	],
+	"author": "OpenTHC",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/openthc/directory/issues"
+	},
+	"homepage": "https://github.com/openthc/directory#readme"
 }
