@@ -25,8 +25,8 @@ $cfg['redis'] = [
 $cfg['openthc'] = [
 	'sso' => [
 		'origin' => 'https://sso.openthc.example',
-		'oauth-client-id' => '/* SOME ULID */',
-		'oauth-cleint-sk' => '/* SOME Secret */',
+		'client-id' => '/* SOME ULID */',
+		'client-sk' => '/* SOME Secret */',
 	]
 ];
 
