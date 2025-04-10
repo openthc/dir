@@ -20,9 +20,7 @@ if (empty($_ENV['title'])) {
 <meta name="viewport" content="initial-scale=1, user-scalable=yes">
 <meta name="application-name" content="OpenTHC">
 <meta name="theme-color" content="#069420">
-<meta name="apple-mobile-web-app-title" content="OpenTHC">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="msapplication-TileColor" content="#069420">
 <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
 <link rel="stylesheet" href="/vendor/jquery/jquery-ui.min.css">
 <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
